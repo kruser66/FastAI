@@ -1,8 +1,10 @@
 # Разработчикам бэкенда
 
-[TOC]
+Общая структуру проекта указана:
 
-## Как развернуть локально
+* [Локальная схема инсталяции бэкенда](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_local_installation.drawio.png)
+* [PROD инсталяция бэкенда](https://gitlab.dvmn.org/root/fastapi-articles/-/wikis/fastai/backend_prod_installation.drawio.png)
+
 
 ### Необходимое ПО
 
