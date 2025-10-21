@@ -10,13 +10,13 @@ repos:
       - id: editorconfig-checker
         name: editorconfig-checker
         entry: ec src/
-        language: python
+        language: system
         pass_filenames: no
-        additional_dependencies: [editorconfig-checker]
+        # additional_dependencies: [editorconfig-checker]
 
       - id: linters-ruff
         name: ruff
         entry: ruff check ./src
         language: python
         pass_filenames: no
-        additional_dependencies: [ruff]
+        # additional_dependencies: [ruff]
