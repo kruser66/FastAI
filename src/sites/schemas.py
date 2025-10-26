@@ -16,7 +16,7 @@ class SiteSchema(BaseModel):
     updated_at: datetime = Field(..., description='Дата и время создания сайта')
 
 
-class SiteRequestSchema(BaseModel):
+class SiteCreateRequestSchema(BaseModel):
     prompt: str = Field(..., description='Промпт создания сайта')
     title: str = Field(..., description='Заголовок сайта')
 
@@ -24,8 +24,22 @@ class SiteRequestSchema(BaseModel):
         json_schema_extra={
             'examples': [
                 {
-                    'title': 'Фан клуб Домино',
-                    'prompt': 'Сайт любителей играть в домино',
+                    'prompt': 'Портфолио профессионального спортсмена BMX-Freestyle',
+                    'title': 'Kruglova Fun Club',
+                },
+            ],
+        },
+    )
+
+
+class SiteGenerateRequestSchema(BaseModel):
+    prompt: str = Field(..., description='Промпт создания сайта')
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            'examples': [
+                {
+                    'prompt': 'Портфолио профессионального спортсмена BMX-Freestyle',
                 },
             ],
         },
