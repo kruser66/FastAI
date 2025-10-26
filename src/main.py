@@ -1,24 +1,25 @@
 from fastapi import APIRouter, FastAPI
-from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
-api_router = APIRouter(prefix="/api/v1")
+from schemas import UserResponseSchema
+
+api_router = APIRouter(prefix='/api/v1')
 
 
-@api_router.get('/users/me')
+@api_router.get('/users/me', response_model=UserResponseSchema)
 def mock_get_users_me():
     mock_user_me = {
-        "email": "kruser@yandex.ru",
-        "isActive": True,
-        "profileId": "1",
-        "registeredAt": "2025-06-15T18:29:56+00:00",
-        "updatedAt": "2025-06-15T18:29:56+00:00",
-        "username": "kruser",
+        'email': 'kruser@yandex.ru',
+        'is_active': True,
+        'profile_id': '1',
+        'registered_at': '2025-06-15T18:29:56+00:00',
+        'updated_at': '2025-06-15T18:29:56+00:00',
+        'username': 'kruser',
     }
-    return JSONResponse(content=mock_user_me, status_code=200)
+    return mock_user_me
 
 
-app = FastAPI(title="FastAI kruser app")
+app = FastAPI(title='FastAI kruser app')
 app.include_router(api_router)
-app.mount("/assets", StaticFiles(directory="frontend/assets"), name="assets")
-app.mount("/", StaticFiles(directory="frontend", html=True), name="static")
+app.mount('/assets', StaticFiles(directory='frontend/assets'), name='assets')
+app.mount('/', StaticFiles(directory='frontend', html=True), name='static')
