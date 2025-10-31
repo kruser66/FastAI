@@ -1,22 +1,22 @@
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, Field, PositiveInt
+from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
 
-class SiteSchema(BaseModel):
+class Site(BaseModel):  # класс данных перенести в отдельный файл
 
-    id: PositiveInt = Field(..., description='Id сайта')
+    id: int = Field(..., description='Id сайта')
     prompt: str = Field(..., description='Промпт создания сайта')
     title: str = Field(..., description='Заголовок сайта')
-    screenshot_url: str = Field(..., description='Ссылка на скриншот сайта')
-    html_code_download_url: str = Field(..., description='Ссылка на загрузку сайта')
-    html_code_url: str = Field(..., description='Ссылка на сайт')
+    screenshot_url: str | None = Field(..., description='Ссылка на скриншот сайта')
+    html_code_download_url: str | None = Field(..., description='Ссылка на загрузку сайта')
+    html_code_url: str | None = Field(..., description='Ссылка на сайт')
     created_at: datetime = Field(..., description='Дата и время создания сайта')
     updated_at: datetime = Field(..., description='Дата и время создания сайта')
 
 
-class SiteCreateRequestSchema(BaseModel):
+class SiteCreateRequestSchema(BaseModel):  # классы схем вместе с эндпоинтами и имена файлов по имени endpointa
     prompt: str = Field(..., description='Промпт создания сайта')
     title: str = Field(..., description='Заголовок сайта')
 
@@ -46,24 +46,37 @@ class SiteGenerateRequestSchema(BaseModel):
     )
 
 
-class SiteResponseSchema(SiteSchema):
-    """Site response schema."""
+class SiteResponseSchema(Site):
+
+    model_config = ConfigDict(
+        alias_generator=to_camel,
+        populate_by_name=True,
+    )
+
+
+class MySitesResponseSchema(BaseModel):
+    """My sites response schema."""
+    sites: list[SiteResponseSchema]
 
     model_config = ConfigDict(
         alias_generator=to_camel,
         populate_by_name=True,
         json_schema_extra={
             'examples': [
-                    {
-                        'id': 1,
-                        'title': 'Фан клуб Домино',
-                        'prompt': 'Сайт любителей играть в домино',
-                        'screenshotUrl': 'http://example.com/media/index.png',
-                        'htmlCodeDownloadUrl': 'http://example.com/media/index.html?response-content-disposition=attachment',
-                        'htmlCodeUrl': 'http://example.com/media/index.html',
-                        'createdAt': '2025-06-15T18:29:56+00:00',
-                        'updatedAt': '2025-06-15T18:29:56+00:00',
-                    },
-                ],
+                {
+                    'sites': [
+                        {
+                            'id': 1,
+                            'title': 'Фан клуб Домино',
+                            'prompt': 'Сайт любителей играть в домино',
+                            'screenshotUrl': 'http://example.com/media/index.png',
+                            'htmlCodeDownloadUrl': 'http://example.com/media/index.html?response-content-disposition=attachment',
+                            'htmlCodeUrl': 'http://example.com/media/index.html',
+                            'createdAt': '2025-06-15T18:29:56+00:00',
+                            'updatedAt': '2025-06-15T18:29:56+00:00',
+                        },
+                    ],
+                },
+            ],
         },
     )

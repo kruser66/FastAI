@@ -8,3 +8,4 @@ tmp*
 .DS_Store
 .ruff_cache
 frontend/
+mock/

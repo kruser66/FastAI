@@ -3,15 +3,19 @@ from datetime import datetime
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, PositiveInt
 from pydantic.alias_generators import to_camel
 
+# TODO Annotated[] или другие способы огранияения длины строки
+
 
 class UserSchema(BaseModel):
     """Base user schema."""
-    username: str = Field(..., lte=254, description='Имя пользователя')
+    username: str = Field(..., lte=254, description='Имя пользователя')  # max_lenght
     email: EmailStr = Field(..., description='E-mail пользователя')
     is_active: bool = Field(..., description='Флаг активности пользователя')
     profile_id: PositiveInt = Field(..., description='Профиль пользователя')
     registered_at: datetime = Field(..., description='Дата и время регистрации пользователя')
-    updated_at: datetime = Field(..., description='Дата и время изменения данных пользователя')
+    # docstring к аттрибуту класса
+    updated_at: datetime
+    """Дата и время изменения данных пользователя"""
 
 
 class UserResponseSchema(UserSchema):
@@ -20,6 +24,7 @@ class UserResponseSchema(UserSchema):
     model_config = ConfigDict(
         alias_generator=to_camel,
         populate_by_name=True,
+        use_attribute_docstrings=True,
         json_schema_extra={
             'examples': [
                     {
