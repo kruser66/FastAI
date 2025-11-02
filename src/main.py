@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from sites.router import site_router
-from users.router import user_router
+from users import user_router
 
 app = FastAPI(title='FastAI kruser app')
 

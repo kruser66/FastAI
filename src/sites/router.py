@@ -6,7 +6,7 @@ from fastapi.responses import StreamingResponse
 from sites.schemas import MySitesResponseSchema, SiteCreateRequestSchema, SiteGenerateRequestSchema, SiteResponseSchema
 
 # Продумать импорты роутеров
-site_router = APIRouter(prefix='/api/v1')
+site_router = APIRouter(prefix='/api/v1', tags=['sites'])
 
 
 @site_router.post('/sites/create', response_model=SiteResponseSchema)
