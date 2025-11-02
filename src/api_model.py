@@ -1,12 +1,11 @@
 from datetime import datetime
 from typing import Annotated
 
-from pydantic import BaseModel, EmailStr
-from pydantic.types import PositiveInt, StrictBool, StringConstraints
+from pydantic import BaseModel, EmailStr, HttpUrl
+from pydantic.types import PositiveInt, StrictBool, StrictStr, StringConstraints
 
 
 class User(BaseModel):
-    """API user model."""
     username: Annotated[str, StringConstraints(max_length=254)]
     """Имя пользователя"""
     email: EmailStr
@@ -19,3 +18,22 @@ class User(BaseModel):
     """Дата и время регистрации пользователя"""
     updated_at: datetime
     """Дата и время изменения данных пользователя"""
+
+
+class Site(BaseModel):
+    id: PositiveInt
+    """ID сайта"""
+    prompt: StrictStr
+    """Промпт создания сайта"""
+    title: StrictStr
+    """Заголовое сайта"""
+    screenshot_url: HttpUrl | None
+    """Ссылка на скриншот сайта"""
+    html_code_download_url: HttpUrl | None
+    """ссылка на загрузку файла"""
+    html_code_url: HttpUrl | None
+    """Ссылка на сайт"""
+    created_at: datetime
+    """Дата и время создания сайта"""
+    updated_at: datetime
+    """Дата и время изменения сайта"""

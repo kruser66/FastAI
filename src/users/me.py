@@ -6,7 +6,7 @@ from api_model import User
 from .router import user_router
 
 
-class UserResponseSchema(User):
+class UserResponse(User):
     """User response schema."""
 
     model_config = ConfigDict(
@@ -28,7 +28,7 @@ class UserResponseSchema(User):
     )
 
 
-@user_router.get('/users/me', response_model=UserResponseSchema)
+@user_router.get('/users/me', response_model=UserResponse)
 def mock_get_users_me():
     mock_user_me = {
         'email': 'kruser@yandex.ru',
