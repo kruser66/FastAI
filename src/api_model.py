@@ -27,11 +27,11 @@ class Site(BaseModel):
     """Промпт создания сайта"""
     title: StrictStr
     """Заголовое сайта"""
-    screenshot_url: HttpUrl | None
+    screenshot_url: HttpUrl | None = None
     """Ссылка на скриншот сайта"""
-    html_code_download_url: HttpUrl | None
+    html_code_download_url: HttpUrl | None = None
     """ссылка на загрузку файла"""
-    html_code_url: HttpUrl | None
+    html_code_url: HttpUrl | None = None
     """Ссылка на сайт"""
     created_at: datetime
     """Дата и время создания сайта"""

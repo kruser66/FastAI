@@ -2,6 +2,8 @@ import anyio
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, ConfigDict, StrictStr
 
+from settings import settings
+
 from .router import site_router
 
 
@@ -31,7 +33,7 @@ class SiteGenerateRequest(BaseModel):
 @site_router.post('/sites/{site_id}/generate')
 async def generate_site(site_id: int, request: SiteGenerateRequest):
 
-    file_path = '/home/kruser/python/test/FastAI/src/mock/mock.html'
+    file_path = settings.MOCK_DIR / 'mock.html'
 
     return StreamingResponse(
         content=mock_generate_text_chunks(file_path),

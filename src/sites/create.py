@@ -9,8 +9,8 @@ from .router import site_router
 class SiteCreateRequest(BaseModel):
     prompt: StrictStr
     """Промпт создания сайта"""
-    title: StrictStr
-    """Заголовое сайта"""
+    title: str | None = None
+    """Заголовок сайта"""
 
     model_config = ConfigDict(
         json_schema_extra={
@@ -50,7 +50,7 @@ class SiteCreateResponse(Site):
 def mock_site_create(request: SiteCreateRequest):
     mock_site_created = {
         'id': 1,
-        'title': request.title,
+        'title': request.title or '',
         'prompt': request.prompt,
         'screenshotUrl': 'http://example.com/media/index.png',
         'htmlCodeDownloadUrl': 'http://example.com/media/index.html?response-content-disposition=attachment',
